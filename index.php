@@ -4,11 +4,7 @@
       href="img/favicon.gif">
 </head>
 <?php
-// ***********************************************
-// ***Year: 2017*******************************
-// **Author: Adán Conde*********************
-// **e-Mail: adanconderibes@gmail.com***
-// ******************************************
+
 session_start();
 
 if (isset($_COOKIE['c_user'])){
