@@ -14,12 +14,10 @@ if(mysql_num_rows($query) > 0){
 	$_SESSION['name'] = $row['name'];
 	echo ($row['name']);
 
-	//setcookie("c_user", $user, time() + (60*60*24*365)); Un año de sesión activa
-	//setcookie("c_user", $user, time() + (60*60*24*7)); //Una semana de sesión activa
-	if($_SESSION['user']!="mrrobot"){
+	if($_SESSION['user']!="admin"){
 		setcookie("c_user", strtolower($row['user']), time() + (60*60*10)); //10 horas de sesión activa
 	} else {
-		setcookie("c_user", strtolower($row['user']), time() + (60*60*100)); //100 horas de sesión activa (Para MrRobot)
+		setcookie("c_user", strtolower($row['user']), time() + (60*60*100)); //100 horas de sesión activa 
 	}
 	
 	$currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
