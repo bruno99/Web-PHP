@@ -17,13 +17,7 @@ $rowMaxDrUser = mysql_fetch_array(mysql_query("SELECT author, COUNT(author) AS d
 $rowMaxGerpUser = mysql_fetch_array(mysql_query("SELECT author_gerp, COUNT(author_gerp) AS gerpNumber FROM t_storage GROUP BY author_gerp ORDER BY gerpNumber DESC LIMIT 1"));
 
 $rowNombre = mysql_fetch_array(mysql_query("SELECT name FROM t_users WHERE user = '".$_COOKIE['c_user']."' "));
-/*
-function formatWeek($week) {
-	if(strlen($week)>1)
-		$week = substr($week, 1, strlen($week));
-	return $week;
-}
-*/
+
 ?>
 <table class="selectTool">
 <tr>
