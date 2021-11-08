@@ -22,7 +22,6 @@ $rowNombre = mysql_fetch_array(mysql_query("SELECT name FROM t_users WHERE user 
 <table class="selectTool">
 <tr>
 	<td></td>
-	<td><?php echo "Se han introducido ".$row['ID']." DR desde el d&iacute;a 19/09/2014, con ".$numReg." activos<br><br><a href='#' onclick=javascript:window.open('Ranking.php','RankingDR','width=400,height=600')>El usuario con m&aacute;s DR introducidos (en el sistema local) hasta el momento es ".strtoupper($rowMaxDrUser['author']).", con ".$rowMaxDrUser['drNumber'].".</a> <a href='#' onclick=javascript:window.open('RankingGerp.php','RankingGerp','width=400,height=600')>El usuario que ha introducido m&aacute;s DR en GERP es ".strtoupper($rowMaxGerpUser['author_gerp']).", con ".$rowMaxGerpUser['gerpNumber']."</a><br><br>Con su usuario, ".strtoupper($_COOKIE['c_user']).", ha introducido ".$rowDrByUser." al sistema local, y ".$rowGerpByUser." DR a GERP. " ?></td>
 	<td></td>
 </tr>
 <tr>
@@ -41,18 +40,18 @@ $rowNombre = mysql_fetch_array(mysql_query("SELECT name FROM t_users WHERE user 
 
 <script>
 function checkNoReceived(){
-	$.ajax({ //Si hace mas de un mes que un terminal no se ha recibido, se muestra una alerta
+	$.ajax({ 
 	   url: 'checkNoReceived.php',
 	   dataType: 'json',
 	   success: function(data){
 			if(data[0].status=='OK'){
 				var listaDR = "\n";
 				for(i=0; i<data.length;i++){
-					if(i==0) //La primera fila se abre con <tr> y se escribe el primer campo
+					if(i==0) 
 						listaDR = listaDR + "<tr><td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
-					else if (i%2==0) //Cada 2 filas, se escribe la siguiente columna, pero se cierra la fila con </tr>
+					else if (i%2==0)
 						listaDR = listaDR + "<td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td></tr>";
-					else if(i!=0 && i%3==0) //Cada 3, salta fila. Se excluye i=0 porque si no saltaría línea tras el primero
+					else if(i!=0 && i%3==0) 
 						listaDR = listaDR + "<tr><td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
 					else
 						listaDR = listaDR + "<td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
