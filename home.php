@@ -65,7 +65,7 @@ function checkNoReceived(){
 				}
 				listaDR = listaDR + "\n\n";
 				$("#pendRec").html("<table class='pending'><tr><td colspan='3'>Terminales pendientes de recibir de m&aacute;s de 15 d&iacute;as</td></tr><tr>" + listaDR + "</tr></table>");
-				//alert("Existe algun terminal de los siguientes RMA que hace mas de 15 dias que no consta como recibido" +listaDR+ "Por favor, compruebelo");
+				
 			}
 	   }
 	});
