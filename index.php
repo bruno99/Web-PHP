@@ -28,7 +28,7 @@ if (isset($_COOKIE['c_user'])){
         </div>
 		-->
 		<div class="olvido">
-		<div class="col"><a href="mailto:adan.conde@lge.com;joaquin.serra@lge.com" title="Contactar con el administrador">Contactar con el administrador</a></div>
+		<div class="col"><a href="mailto:adan.conde@lge.com;bruno.urban@lge.com" title="Contactar con el administrador">Contactar con el administrador</a></div>
 		</div>
         <a href="#" class="enviar" id="enviar">Enviar</a>
     </form>
