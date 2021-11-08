@@ -74,15 +74,3 @@ if (window.document.addEventListener) {
    window.document.attachEvent("onkeydown", callkeydownhandler);
 }
 </script>
-
-<!-- ESTE CÓDIGO PERMITE SABER EL NÚMERO DE LA TECLA QUE SE HA PULSADO
-function callkeydownhandler(evnt) {
-   var ev = (evnt) ? evnt : event;
-   var code=(ev.which) ? ev.which : event.keyCode;
-   alert("El código de la tecla pulsada es: " + code);
-}
-if (window.document.addEventListener) {
-   window.document.addEventListener("keydown", callkeydownhandler, false);
-} else {
-   window.document.attachEvent("onkeydown", callkeydownhandler);
-}-->
