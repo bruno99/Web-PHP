@@ -54,7 +54,6 @@ $totalACP = mysql_result(mysql_query("SELECT COUNT(*) FROM t_storage WHERE estad
 <div id='cssmenu'>
 <ul>
    <li class='active'><a href="javascript:loadContent('home.php');">Home</a></li>
-   <li class='no-sub'><a href='./presupuestos/ppto_oow/' target="_blank">PPTOS</a></li>
    <li class='has-sub'><a href='#'>IMEI Tools</a>
       <ul>
          <li><a href="javascript:loadContent('getIMEIinfo.php');">IMEI Info</a></li>
