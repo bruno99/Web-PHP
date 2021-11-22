@@ -146,23 +146,3 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 </body>
 </html>
 
-<script>
-	var cont = 0;
-	var r = 255, g = 255, b = 255;
-	function blinkField(){
-		if($("#mc").val() == "" && cont < 9){
-			if(g != 255){
-				g = 255;
-				$("#mc").css("background-color", "rgb(0,"+g+",50)");
-			}
-			else{
-				g=250;
-				$("#mc").css("background-color", "rgb(250,"+g+",250)");
-			}
-		}
-		if(cont < 9){
-			cont++;
-			setTimeout(blinkField, 500);
-		}
-	}
-</script>
