@@ -65,7 +65,6 @@ if($errorFlag == false){
 $("#sendFile").click(function(){
 	$('#formFile').submit();
 });
-	//$('#loading').html("Este programa recupera el N. de serie y modelo por XML, por lo que puede llevar un rato la carga de todos los DR.");
 
 
 </script>
