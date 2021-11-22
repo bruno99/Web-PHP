@@ -8,31 +8,23 @@ $numReg = $result2->num_rows;
 $rowLastUp = $mysqli->query("SELECT MAX(f_creacion) FROM t_storage WHERE tipo_subida = 'F' ")->fetch_array();
 $lastUp = $rowLastUp['MAX(f_creacion)'];
 
-$rowDrByUser = $mysqli->query("SELECT ID FROM t_storage WHERE author = '".$_COOKIE['c_user']."' ")->num_rows;
-
-$rowGerpByUser = $mysqli->query("SELECT ID FROM t_storage WHERE author_gerp = '".$_COOKIE['c_user']."' ")->num_rows;
-
-$rowMaxDrUser = $mysqli->query("SELECT author, COUNT(author) AS drNumber FROM t_storage GROUP BY author ORDER BY drNumber DESC LIMIT 1")->fetch_array();
-
-$rowMaxGerpUser = $mysqli->query("SELECT author_gerp, COUNT(author_gerp) AS gerpNumber FROM t_storage GROUP BY author_gerp ORDER BY gerpNumber DESC LIMIT 1")->fetch_array();
-
 $rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['c_user']."' ")->fetch_array();
 
 ?>
 <table class="selectTool">
 <tr>
-	<td></td>
-	<td></td>
+	
+<td>
+	<?php echo "<br>Con su usuario, ".strtoupper($_COOKIE['c_user']).", ha introducido ".$rowDrByUser." al sistema local, y ".$rowGerpByUser." DR a GERP. " ?>
+	</td>
+
 </tr>
 <tr>
 	<td></td>
 	<td><img src="./img/LG_new_logo.png" width="250" ></td>
 	<td></td>
 </tr>
-<tr>
-	<td></td>
-	<td></td>
-</tr>
+
 </table>
 <div id="pendRec">
 </div>
