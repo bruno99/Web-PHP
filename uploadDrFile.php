@@ -7,13 +7,12 @@
 		exit;
 	}
 ?>
-<!--******JQuery******-->
+
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<!--******JQuery******-->
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="./css/tableStyle.css" />
-<link rel="stylesheet" type="text/css" href="./css/loginStyle.css" />
+<link rel="stylesheet" type="text/css" href="./css/Style.css" />
+<
 <html>
 <head>
     <title>Subir fichero DR</title>
@@ -24,8 +23,32 @@
 <tr>
 <th>Seleccione el fichero de DRs que desea cargar en la base de datos (Pulse una sola vez sobre Enviar, y espere)</th>
 </tr>
-<form id="formFile" action="./uploadDrFileProcess.php" method="post" enctype="multipart/form-data">
-    <tr><td><label for="file">Fichero:</label><input type="file" name="file" id="file"></tr></td>
+<form 
+      $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader->setReadDataOnly(true); //No se leen propiedades, solo los datos
+	
+$arrayColumn = ['B', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q'];
+
+	//Se calcula el número de filas que contienen datos
+$contador = 3;
+$newCell = "E2";
+$currentCell = $sheet->getCell($newCell)->getValue();
+do{
+  $newCell = "E".$contador;
+  $contador++;
+}while(!is_null($currentCell = $sheet->getCell($newCell)->getValue()));
+
+$contador = $contador - 2; //Número máximo de filas (descontando cabecera y fin) real
+
+if($errorFlag == false){
+  mysql_query("COMMIT");
+  $echoContador = $contador - 1;
+  echo "<br><strong>".$echoContador." DR del fichero insertados satisfactoriamente en la base de datos. Ya puede cerrar esta ventana</strong><br>";
+	else{
+	 echo "<br><br><strong><h2>ERROR: Se ha producido un error subiendo el fichero de los DR</h2></strong><br>";
+	}
+	}
 </form>
 <tr><td><input id="sendFile" type="button" value="Enviar"></tr></td>
 <tr>
@@ -37,11 +60,10 @@
 </table>
 </body>
 </html>
-<script src="./js/dailyBackground.js"></script>
+
 <script>
 $("#sendFile").click(function(){
 	$('#formFile').submit();
-	$('.ventana').html("<th>Este programa recupera el N&ordm; de serie y modelo por XML, por lo que puede llevar un rato la carga de todos los DR<br><br><div align='center'><img src='./img/loading.gif' width=250px></div></th>");
 });
 	//$('#loading').html("Este programa recupera el N. de serie y modelo por XML, por lo que puede llevar un rato la carga de todos los DR.");
 
