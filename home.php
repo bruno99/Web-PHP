@@ -31,7 +31,6 @@ $rowNombre = mysql_fetch_array(mysql_query("SELECT name FROM t_users WHERE user 
 </tr>
 <tr>
 	<td></td>
-	<td><a href="./DRselectTool.php">VOLVER A MEN&Uacute; CL&Aacute;SICO</a></td>
 	<td></td>
 </tr>
 </table>
