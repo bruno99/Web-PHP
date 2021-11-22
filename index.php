@@ -11,30 +11,22 @@ if (isset($_COOKIE['c_user'])){
 	header('Location: ./menu.php');
 }
 ?>
-<!--******JQuery******-->
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<!--******JQuery******-->
 <link rel="stylesheet" type="text/css" href="./css/loginStyle.css" />
 <section class="login">
 	<div class="titulo">SAT DIRECT SYSTEM</div>
 	<form action="#" id="form" method="post" enctype="application/x-www-form-urlencoded">
     	<input type="text" id="user" required title="Username required" placeholder="Username" data-icon="U" autofocus>
         <input type="password" id="pass" required title="Password required" placeholder="Password" data-icon="x">
-        <!--
+
 		<div class="olvido">
-        	<div class="col"><a href="#" title="Ver Caracteres">Register</a></div>
-            <div class="col"><a href="#" title="Recuperar Password">Fotgot Password?</a></div>
-        </div>
-		-->
-		<div class="olvido">
+			//hablar con administrador
 		<div class="col"><a href="mailto:adan.conde@lge.com;bruno.urban@lge.com" title="Contactar con el administrador">Contactar con el administrador</a></div>
 		</div>
         <a href="#" class="enviar" id="enviar">Enviar</a>
     </form>
 </section>
-
-<!--<div id="LGindex"><img src="./img/LG_new_logo.png" width="500"></div>-->
 
 <script>
 $(document).ready(function() {
