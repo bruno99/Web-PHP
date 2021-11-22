@@ -12,6 +12,17 @@ $rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['
 
 ?>
 <table class="selectTool">
+	<tr>
+		<script src="./js/realtimeClock.js"></script>
+<script>
+$(document).ready(function()
+{
+	
+	setInterval('updateClock()', 1000);
+});
+</script>
+	</tr>
+
 <tr>
 	
 <td>
