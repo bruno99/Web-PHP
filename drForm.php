@@ -1,27 +1,19 @@
 <?php
 	session_start();
 
-	if(!isset($_COOKIE['c_user'])){
-		header('Location: ./index.html');
-		exit;
-	}
-
 include_once(".htconnection.php");
 $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error());
 ?>
 <!DOCTYPE html>
 <html>
-<!--******JQuery******-->
+
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="./jquery/jquery-ui.css" />
 <style type="text/css">
-   .ui-autocomplete { height: 250px; overflow-y: scroll; overflow-x: hidden;}
-</style>
-<!--******JQuery******-->
-<link rel="stylesheet" type="text/css" href="./css/loginStyle.css" />
-<link rel="stylesheet" type="text/css" href="./css/tableStyle.css" />
-
+    { height: 250px; overflow-y: scroll; overflow-x: hidden;}
+</style>-->
+<link rel="stylesheet" type="text/css" href="./Style.css" />
 <script>
 	$(function(){
 		$(".datepicker").datepicker({
@@ -33,13 +25,23 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 
 		 $( ".autoModel" ).autocomplete({
 			source: function( request, response ) {
-				$.ajax({
-					url: "getModels.php",
-					type: 'GET',
-					dataType: "json",
-					data: {
-						term: request.term
-					},
+   
+	      $results = false; //Para evitar que, en caso de meter datos en el autocomplete que no existen en la base de datos, la variable $results no exista y devuelva un error parseError
+	
+                             $req = "SELECT modelo "
+                                    ."FROM t_models "
+                                     ."WHERE modelo LIKE '%".$_REQUEST['term']."%' ORDER BY modelo ASC";
+    
+                              $query = mysql_query($req);
+    
+    while($row = mysql_fetch_array($query))
+    {
+        $results[] = array('modelo' => $row['modelo']);
+    }
+    
+    echo json_encode($results);
+
+?>
 					success: function(data) {
 						response($.map(data, function(item) {
 							return {
@@ -70,7 +72,7 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 <body>
 
 <table cellspacing='0' class='tableDRform'>
-<form action="./newDrPhpCode.php" method="post" name="drForm" id="drForm">
+	
 <thead><th colspan="4">Informaci&oacute;n de contacto</th></thead>
 <tr>
    <td><div align="center">Precargado:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="precargado" id="precargado">
@@ -86,7 +88,6 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
    <td>
    RMA: <input id="rma" name="rma" type="text">
    </td>
-   <!-- <td>* MC/SD/OT/OR: <br /><input name="mc" value="" type="text" id="mc"><br><input type="button" value="Seguir sin MC" onclick="javascript:document.getElementById('mc').value='null '"></td> -->
    <td>MC/SD/OT/OR: <br /><input name="mc" value="" type="text" id="mc"></td>
    <td>Fecha recepci&oacuten terminal: <input id="f_recibido" name="f_recibido" value="" type="text" class="datepicker"></td>
 </tr>
@@ -94,7 +95,7 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 	<td><div align="center">
 	*Cliente: <br /><input name="cliente" id="cliente" value="" type="text" size="40"> <a href="javascript:insertarComentario();">&nbsp;<img src="./img/addComment.png" width="20"></a><br><div id="insertComment"><textarea placeholder='Inserte aqu&iacute; su comentario...' name='comentarios' rows='1' cols='50'></textarea></div>
    <br>
-	C&oacute;digo Postal: <br /><input name="cp" id="cp" type="number" class="autoField"></div></td>
+	C&oacute;digo Postal: <br /><input name="cp" id="cp" type="number""></div></td>
 	<td>Tel&eacute;fono:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="telefono" id="telefono" type="number"><br>Calle: <input name="calle" id="calle" type="text"></td>
 	<td>Poblaci&oacute;n: <input name="poblacion" id="poblacion" type="text"></td>
 	<td>Provincia: <input name="provincia" id="provincia" type="text"></td>
@@ -121,12 +122,13 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 	<td>*S/N: <input name="out_serial" id="out_serial" type="text" class="serialNumber"></td>
 	<td>*Modelo: <input name="out_modelo" id="out_modelo" type="text" class="autoModel"></td>
 </tr>
-<thead><th>Datos de entrada</th><th><div id="statusIMEI"></div></th><th></th><th><a href="javascript:copiarModelo()">Copiar modelo<img src="./img/copyModel.png" width=30px></a></th></thead>
+		
+<thead><th>Datos de entrada</th></thead>
 <tbody>
 <tr>
 	<td>*Almac&eacuten: <select name="in_almacen">
 					<option selected="yes" value="UNITDMG-SV">UNITDMG-SV</option>
-				</select><br><br><br>Los campos con fondo gris cuentan con alg&uacute;n tipo de auto-completado autom&aacute;tico<br><br>Los campos con un asterisco son obligatorios<br>&nbsp;<div id="loading" align="center"></div></td>
+
 	<td>*IMEI: <input name="in_imei" type="text" class="getIMEI"></td>
 	<td>*S/N: <input name="in_serial" id="in_serial" type="text" class="serialNumber"></td>
 	<td>*Modelo: <input name="in_modelo" id="in_modelo" type="text" class="autoModel"></td>
