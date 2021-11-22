@@ -5,9 +5,9 @@ $hostname = "150.150.216.251";
 $database = "kpidb";
 
 //connection to the database
-$dbhandle = mysql_connect($hostname, $username, $password)
+$dbhandle = new mysqli($hostname, $username, $password)
 or die("Unable to connect to MySQL");
 echo "Successfully connected to database <b>".$database."</b><br />";
 //select a database to work with
-$selected = mysql_select_db($database, $dbhandle)
+$selected = $dbhandle->select_db($database)
   or die("Could not select database");
