@@ -27,7 +27,7 @@ $rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['
 	</li>
 
 	<li>
-		<a href='logout.php'><div class="logout">Logout</div></a>
+		<a href='logout.php' onclick= javascript:open('logout.php')><div class="logout">Logout</div></a>
 	</li>
 <tr>
 	
