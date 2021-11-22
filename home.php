@@ -16,18 +16,24 @@ $rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['
           <script>
             $(document).ready(function()
              {
-		    //el reloj de la izqiuerda
+		    //el reloj de la izquierda
 	       setInterval('updateClock()', 1000);
              });
           </script>
 	</tr>
+	
+	<li>
+		<?php echo "Logueado como<br>".$rowNombre['name'] ?>
+	</li>
 
+	<li>
+		<a href='logout.php'><div class="logout">Logout</div></a>
+	</li>
 <tr>
 	
 <td>
 	<?php echo "<br>Con su usuario, ".strtoupper($_COOKIE['c_user']).", ha introducido ".$rowDrByUser." al sistema local, y ".$rowGerpByUser." DR a GERP. " ?>
 	</td>
-
 </tr>
 <tr>
 	<td></td>
