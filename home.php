@@ -38,34 +38,10 @@ $rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['
 </div>
 
 <script>
-function checkNoReceived(){
-	$.ajax({ 
-	   url: 'checkNoReceived.php',
-	   dataType: 'json',
-	   success: function(data){
-			if(data[0].status=='OK'){
-				var listaDR = "\n";
-				for(i=0; i<data.length;i++){
-					if(i==0) 
-						listaDR = listaDR + "<tr><td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
-					else if (i%2==0)
-						listaDR = listaDR + "<td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td></tr>";
-					else if(i!=0 && i%3==0) 
-						listaDR = listaDR + "<tr><td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
-					else
-						listaDR = listaDR + "<td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
-				}
-				listaDR = listaDR + "\n\n";
-				$("#pendRec").html("<table class='pending'><tr><td colspan='3'>Terminales pendientes de recibir de más de 15 días</td></tr><tr>" + listaDR + "</tr></table>");
-				
-			}
-	   }
-	});
-}
+	<li><a href="#" onclick="javascript:window.open('DrForm.php','[New] Insertar DR manual','scrollbars=1,width=1600,height=800')">[New] Insertar DR manual </a></li>
+        <li><a href="#" onclick="javascript:window.open('uploadDRFile.php','Insertar DR file','scrollbars=1,width=1600,height=400')">Insertar Dr fichero</a></li>
+        <li><a href="#" onclick="javascript:window.open('exportToExcel.php','Listado DR','scrollbars=1,width=800,height=800')">Listado DR</a></li>
+	<li><a href="#" onclick="javascript:window.open('seekDR.php','Buscar DR','scrollbars=1,width=800,height=400')"> Buscar DR</a></li>
+
 </script>
-<script>
-$(document).ready(function()
-{
-	checkNoReceived();
-});
-</script>
+
