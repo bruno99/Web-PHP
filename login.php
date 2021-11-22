@@ -2,13 +2,13 @@
 session_start();
 
 include_once("./.htconnection.php");
-$user = mysql_real_escape_string($_POST["user"]);
-$password = hash('sha256', mysql_real_escape_string($_POST["pass"]));
+$user = $mysqli->real_escape_string($_POST["user"]);
+$password = hash('sha256', $mysqli->real_escape_string($_POST["pass"]));
 
-$query = mysql_query("SELECT * FROM t_users WHERE user='$user' AND password='$password'");
-$row = mysql_fetch_array($query);
+$query = $mysqli->query("SELECT * FROM t_users WHERE user='$user' AND password='$password'");
+$row = $query->fetch_array();
 
-if(mysql_num_rows($query) > 0){
+if($query->num_rows > 0){
 	$_SESSION['ID'] = $row['ID'];
 	$_SESSION['user'] = $user;
 	$_SESSION['name'] = $row['name'];
@@ -21,7 +21,7 @@ if(mysql_num_rows($query) > 0){
 	}
 	
 	$currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	$result_sqlaccess = mysql_query("INSERT INTO t_accesscontrol (k_user, location) VALUES (".$_SESSION['ID'].", '".$currentURL."')") or die(mysql_error());
+	$result_sqlaccess = $mysqli->query("INSERT INTO t_accesscontrol (k_user, location) VALUES (".$_SESSION['ID'].", '".$currentURL."')") or die($mysqli->error);
 }
 else{
 	echo ("NoCorrect");
