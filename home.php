@@ -1,22 +1,22 @@
 <?php
 include_once(".htconnection.php");
-$result = mysql_query("SELECT MAX(ID) as ID FROM t_storage") or die(mysql_error());
-$row = mysql_fetch_array($result);
-$result2 = mysql_query("SELECT * FROM t_storage") or die(mysql_error());
-$numReg = mysql_num_rows($result2);
+$result = $mysqli->query("SELECT MAX(ID) as ID FROM t_storage") or die($mysqli->error);
+$row = $result->fetch_array();
+$result2 = $mysqli->query("SELECT * FROM t_storage") or die($mysqli->error);
+$numReg = $result2->num_rows;
 
-$rowLastUp = mysql_fetch_array(mysql_query("SELECT MAX(f_creacion) FROM t_storage WHERE tipo_subida = 'F' "));
+$rowLastUp = $mysqli->query("SELECT MAX(f_creacion) FROM t_storage WHERE tipo_subida = 'F' ")->fetch_array();
 $lastUp = $rowLastUp['MAX(f_creacion)'];
 
-$rowDrByUser = mysql_num_rows(mysql_query("SELECT ID FROM t_storage WHERE author = '".$_COOKIE['c_user']."' "));
+$rowDrByUser = $mysqli->query("SELECT ID FROM t_storage WHERE author = '".$_COOKIE['c_user']."' ")->num_rows;
 
-$rowGerpByUser = mysql_num_rows(mysql_query("SELECT ID FROM t_storage WHERE author_gerp = '".$_COOKIE['c_user']."' "));
+$rowGerpByUser = $mysqli->query("SELECT ID FROM t_storage WHERE author_gerp = '".$_COOKIE['c_user']."' ")->num_rows;
 
-$rowMaxDrUser = mysql_fetch_array(mysql_query("SELECT author, COUNT(author) AS drNumber FROM t_storage GROUP BY author ORDER BY drNumber DESC LIMIT 1"));
+$rowMaxDrUser = $mysqli->query("SELECT author, COUNT(author) AS drNumber FROM t_storage GROUP BY author ORDER BY drNumber DESC LIMIT 1")->fetch_array();
 
-$rowMaxGerpUser = mysql_fetch_array(mysql_query("SELECT author_gerp, COUNT(author_gerp) AS gerpNumber FROM t_storage GROUP BY author_gerp ORDER BY gerpNumber DESC LIMIT 1"));
+$rowMaxGerpUser = $mysqli->query("SELECT author_gerp, COUNT(author_gerp) AS gerpNumber FROM t_storage GROUP BY author_gerp ORDER BY gerpNumber DESC LIMIT 1")->fetch_array();
 
-$rowNombre = mysql_fetch_array(mysql_query("SELECT name FROM t_users WHERE user = '".$_COOKIE['c_user']."' "));
+$rowNombre = $mysqli->query("SELECT name FROM t_users WHERE user = '".$_COOKIE['c_user']."' ")->fetch_array();
 
 ?>
 <table class="selectTool">
@@ -56,7 +56,7 @@ function checkNoReceived(){
 						listaDR = listaDR + "<td><a target='_blank' href='./seekDr.php?rma=" + data[i].rma + "'>" + data[i].rma + "</a></td>";
 				}
 				listaDR = listaDR + "\n\n";
-				$("#pendRec").html("<table class='pending'><tr><td colspan='3'>Terminales pendientes de recibir de m&aacute;s de 15 d&iacute;as</td></tr><tr>" + listaDR + "</tr></table>");
+				$("#pendRec").html("<table class='pending'><tr><td colspan='3'>Terminales pendientes de recibir de más de 15 días</td></tr><tr>" + listaDR + "</tr></table>");
 				
 			}
 	   }
