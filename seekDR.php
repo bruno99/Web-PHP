@@ -16,9 +16,7 @@
 <html>
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="./jquery/jquery-ui.css" />
-<link rel="stylesheet" type="text/css" href="./css/loginStyle.css" />
-<link rel="stylesheet" type="text/css" href="./css/tableSeek.css" />
+<link rel="stylesheet" type="text/css" href="./css/styles.css" />
 
 <body>
 <div class="cabecera">
