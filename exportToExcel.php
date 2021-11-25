@@ -4,8 +4,7 @@ require_once('PHPExcel.php');
 
 function export_excel_csv()
 {
-//Si hay variable POST de fecha es porque se está exportando desde la pantalla de selección de fecha y por defecto se eligen los Creados del día de la fecha
-//seleccionada, sin embargo si no hay fecha entonces se recibe Type en GET porque vendrá desde el menú principal desplegable
+
 		$filenameDate = date('Y-m-d');
 		if (isset($_POST['fecha'])){
 			$filenameDate = $_POST['fecha'];
@@ -13,21 +12,7 @@ function export_excel_csv()
 			unset($_POST['fecha']);
 		}
 		else{
-			$type = $_GET["type"];
-
-			if ($type === "all")
-				$query="SELECT * FROM t_storage";
-			else if ($type === "crt")
-				//$query="SELECT * FROM t_storage WHERE estado='CRT' ORDER BY cliente, reason, in_modelo";
-				//Se modifica para que aparezcan listados los CRT anteriores a 10 horas desde creación, de forma que alguien meta DR en GERP y aunque los técnicos
-				//introduzcan nuevos DR al sistema, no aparecen listados (para no marear) hasta 10 horas después, teniendo "margen de maniobra"
-				$query="SELECT * FROM t_storage WHERE estado='CRT' AND f_creacion < (NOW() - INTERVAL 10 HOUR) ORDER BY cliente, reason, in_modelo";
-			else if ($type === "pnd")
-				$query="SELECT * FROM t_storage WHERE estado='PND' ORDER BY rma,  f_realizacionGerp";
-			else if ($type === "acp")
-				$query="SELECT * FROM t_storage WHERE estado='ACP' ORDER BY f_recibido DESC, f_realizacionGerp DESC, rma ASC";
-			else if ($type === "err")
-				$query="SELECT * FROM t_storage WHERE estado='ERR' ORDER BY f_realizacionGerp DESC, rma ASC";
+			$type = $_GET["ERROR"];
 		}
 
 		$result= mysql_query($query) or die(mysql_error());
@@ -103,17 +88,6 @@ function export_excel_csv()
  			else {
  				$partNumber = "";
  			}
-			 $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowcount, $row['reason'] . $partNumber);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowcount, $row['in_almacen']);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowcount, $row['in_modelo']);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowcount, $row['in_serial']);
-			 $objPHPExcel->getActiveSheet()->setCellValueExplicit('P'.$rowcount, $row['in_imei'], PHPExcel_Cell_DataType::TYPE_STRING); //Se formatea la celda del IMEI
-			 $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowcount, $row['out_almacen']);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowcount, $row['out_modelo']);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowcount, $row['out_serial']);
-			 $objPHPExcel->getActiveSheet()->setCellValueExplicit('T'.$rowcount, $row['out_imei'], PHPExcel_Cell_DataType::TYPE_STRING);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowcount, $row['ID']);
-			 $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowcount, $row['f_creacion']);
 			$rowcount++;
 		}
 		$fileName = "Exported_".$type."_".$filenameDate.".xls";
