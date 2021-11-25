@@ -13,7 +13,7 @@ if (isset($_COOKIE['c_user'])){
 ?>
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="./css/loginStyle.css" />
+<link rel="stylesheet" type="text/css" href=".styles.css" />
 <section class="login">
 	<div class="titulo">SAT DIRECT SYSTEM</div>
 	<form action="#" id="form" method="post" enctype="application/x-www-form-urlencoded">
