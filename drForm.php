@@ -9,10 +9,6 @@ $resultDIR= mysqli_query($mysqli,"SELECT ID, name FROM t_addresses") or die(mysq
 
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="./jquery/jquery-ui.css" />
-<style type="text/css">
-    { height: 250px; overflow-y: scroll; overflow-x: hidden;}
-</style>-->
 <link rel="stylesheet" type="text/css" href="./Style.css" />
 <script>
 	$(function(){
