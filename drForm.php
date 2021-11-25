@@ -2,7 +2,7 @@
 	session_start();
 
 include_once(".htconnection.php");
-$resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error());
+$resultDIR= mysqli_query($mysqli,"SELECT ID, name FROM t_addresses") or die(mysqli_error($mysqli));
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,9 +32,9 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
                                     ."FROM t_models "
                                      ."WHERE modelo LIKE '%".$_REQUEST['term']."%' ORDER BY modelo ASC";
     
-                              $query = mysql_query($req);
+                              $query = mysqli_query($mysqli,$req);
     
-    while($row = mysql_fetch_array($query))
+    while($row = mysqli_fetch_array($query))
     {
         $results[] = array('modelo' => $row['modelo']);
     }
@@ -73,34 +73,34 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 
 <table cellspacing='0' class='tableDRform'>
 	
-<thead><th colspan="4">Informaci&oacute;n de contacto</th></thead>
+<thead><th colspan="4">Información de contacto</th></thead>
 <tr>
-   <td><div align="center">Precargado:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="precargado" id="precargado">
+   <td><div align="center">Precargado:        <select name="precargado" id="precargado">
 					<option selected="yes" value=""></option>
 					<?php
-					while($rowDIR = mysql_fetch_assoc($resultDIR)){
+					while($rowDIR = mysqli_fetch_assoc($resultDIR)){
 						echo "<option value='".$rowDIR['ID']."'>".$rowDIR['name']."</option>";
 					}?>
 					</select>
 					<br><br>
-					N&uacutem. Ref. (RNE): <input id="nref" name="nref" value="" type="text" autofocus="yes" class="autoField">
+					Núm. Ref. (RNE): <input id="nref" name="nref" value="" type="text" autofocus="yes" class="autoField">
 				</div></td>
    <td>
    RMA: <input id="rma" name="rma" type="text">
    </td>
    <td>MC/SD/OT/OR: <br /><input name="mc" value="" type="text" id="mc"></td>
-   <td>Fecha recepci&oacuten terminal: <input id="f_recibido" name="f_recibido" value="" type="text" class="datepicker"></td>
+   <td>Fecha recepción terminal: <input id="f_recibido" name="f_recibido" value="" type="text" class="datepicker"></td>
 </tr>
 <tr>
 	<td><div align="center">
-	*Cliente: <br /><input name="cliente" id="cliente" value="" type="text" size="40"> <a href="javascript:insertarComentario();">&nbsp;<img src="./img/addComment.png" width="20"></a><br><div id="insertComment"><textarea placeholder='Inserte aqu&iacute; su comentario...' name='comentarios' rows='1' cols='50'></textarea></div>
+	*Cliente: <br /><input name="cliente" id="cliente" value="" type="text" size="40"> <a href="javascript:insertarComentario();"> <img src="./img/addComment.png" width="20"></a><br><div id="insertComment"><textarea placeholder='Inserte aquí su comentario...' name='comentarios' rows='1' cols='50'></textarea></div>
    <br>
-	C&oacute;digo Postal: <br /><input name="cp" id="cp" type="number""></div></td>
-	<td>Tel&eacute;fono:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="telefono" id="telefono" type="number"><br>Calle: <input name="calle" id="calle" type="text"></td>
-	<td>Poblaci&oacute;n: <input name="poblacion" id="poblacion" type="text"></td>
+	Código Postal: <br /><input name="cp" id="cp" type="number""></div></td>
+	<td>Teléfono:<br />     <input name="telefono" id="telefono" type="number"><br>Calle: <input name="calle" id="calle" type="text"></td>
+	<td>Población: <input name="poblacion" id="poblacion" type="text"></td>
 	<td>Provincia: <input name="provincia" id="provincia" type="text"></td>
 </tr>
-<thead><th colspan="4">Raz&oacute;n</th></thead>
+<thead><th colspan="4">Razón</th></thead>
 <tbody>
 <tr>
    <td colspan="4">*Reason: <select name="reason" id="reason">
@@ -111,7 +111,7 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 <thead><th colspan="4">Datos de salida</th></thead>
 <tbody>
 <tr>
-	<td><b>*Almac&eacute;n:</b><br><br>
+	<td><b>*Almacén:</b><br><br>
 	<span class="almacenes">
 		<input type="radio" id="gsnain" name="out_almacen" value="GS-NA-IN">GS-NA-IN (Producto nuevo)<br>
 		<input type="radio" id="gradejsv" name="out_almacen" value="GRADE-J-SV">GRADE-J-SV (Refurbish)<br>
@@ -126,7 +126,7 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 <thead><th>Datos de entrada</th></thead>
 <tbody>
 <tr>
-	<td>*Almac&eacuten: <select name="in_almacen">
+	<td>*Almacén: <select name="in_almacen">
 					<option selected="yes" value="UNITDMG-SV">UNITDMG-SV</option>
 
 	<td>*IMEI: <input name="in_imei" type="text" class="getIMEI"></td>
@@ -137,7 +137,7 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 <tr>
 <td></td>
 <td colspan="2"><input value="Enviar DR"  type="button" onclick="javascript:sendForm()" class="botonEnviar"></td>
-<td><a href="javascript:if(confirm('&iquest;Cerrar ventana?')) window.close();"><button type="button" class="botonAtras">Cerrar ventana</button></a></td>
+<td><a href="javascript:if(confirm('¿Cerrar ventana?')) window.close();"><button type="button" class="botonAtras">Cerrar ventana</button></a></td>
 </tr>
 </tbody>
 </form>
@@ -145,4 +145,5 @@ $resultDIR= mysql_query("SELECT ID, name FROM t_addresses") or die(mysql_error()
 
 </body>
 </html>
+
 
