@@ -44,25 +44,6 @@
 	function locateDr(){
 		$("#datos").val($("#datos").val().toUpperCase());
 		var datos = $("#datos").val();
-
-
-if(mysql_num_rows($resultDR) <=0){
-	$resultIMEI = mysql_query("SELECT * FROM t_imeis WHERE imei = ".$datos." ");
-	if(@mysql_num_rows($resultIMEI) <= 0)
-		$results[] = array('status' => 'FAIL');
-	else{
-		$rowIMEI = mysql_fetch_assoc($resultIMEI);
-		if (strlen($comentarios = $rowIMEI['comentarios']) < 1)
-			$comentarios = "No hay comentarios";
-
-		$results[] = array('ID' => $rowIMEI['ID'], 'cliente' => 'S/N' ,'reason' => 'S/N', 'mc' => 'S/N', 'in_almacen' => 'S/N', 'in_modelo' => 'S/N', 'in_imei' => $rowIMEI['imei'], 'in_serial' => 'S/N', 'out_almacen' => 'S/N', 'out_modelo' => 'S/N', 'out_imei' => 'S/N', 'out_serial' => 'S/N', 'rma' => 'SIN DATOS EN DB', 'f_recibido' => $rowIMEI['fecha'], 'estado' => 'S/N', 'f_creacion' => 'TERMINAL RECIBIDO PERO SIN DATOS DE DR<br /><br />COMENTARIOS: ' . $comentarios . '', 'status' => 'OK');
-	}
-}
-else{
-	while(@ $row = mysql_fetch_assoc($resultDR)){
-			$results[] = array('ID' => $row['ID'], 'cliente' => utf8_encode($row['cliente']) ,'reason' => $row['reason'], 'mc' => $row['mc'], 'in_almacen' => $row['in_almacen'], 'in_modelo' => $row['in_modelo'], 'in_imei' => $row['in_imei'], 'in_serial' => $row['in_serial'], 'out_almacen' => $row['out_almacen'], 'out_modelo' => $row['out_modelo'], 'out_imei' => $row['out_imei'], 'out_serial' => $row['out_serial'], 'rma' => $row['rma'], 'f_recibido' => $row['f_recibido'], 'estado' => $row['estado'], 'f_creacion' => $row['f_creacion'], 'author' => $row['author'], 'status' => 'OK');
-		}
-}
 				success: function(data){
 					if(data[0].status == "OK"){
 						$('#result').html("");
