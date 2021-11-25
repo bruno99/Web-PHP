@@ -16,7 +16,7 @@
 <html>
 <script src="./jquery/jquery-1.11.1.min.js"></script>
 <script src="./jquery/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="./css/styles.css" />
+<link rel="stylesheet" type="text/css" href=".styles.css" />
 
 <body>
 <div class="cabecera">
@@ -101,80 +101,14 @@
 						$('#result').html("");
 						$('#encontrado').html("<img src='./img/cancel.png' width=35px>");
 					}
-					//Selecciono el contenido del campo de búsqueda para machacar el contenido directamente cuando se usa pistola
 					$("#datos").select();
 				},
 			});
 		}
 }
 
-function markReceived(ID){
-	//var r = confirm ("Se va a marcar el terminal como recibido");
 
-		   $.ajax({
-			   url: 'markIDreceived.php',
-			   type: 'post',
-			   dataType: 'json',
-			   data: {
-				ID: ID
-			   },
-			   success: function(data){
-					if(data[0].status == 'OK'){
-						$('#markNoReceived_'+ID).html("Marcado como recibido");
-						checkReception();
-					}
-					else
-						alert("ERROR");
-				}
-			});
 
-}
-
-function checkReception(){
-   $.ajax({
-       url: 'checkReception.php?callFunction=' + true,
-	   type: 'post',
-       dataType: 'json',
-       success: function(data){
-	   }
-    });
-}
-
-function updateIN(ID){
-	var imeiName = "#in_imei_"+ID;
-	var imei = $(imeiName).val();
-	var serialName = "#in_serial_"+ID;
-	var serial = $(serialName).val();
-
-	 $.ajax({
-       url: 'updateIN.php',
-	   data: {
-			ID: ID,
-			imei: imei,
-			serial: serial
-	   },
-	   type: 'post',
-       dataType: 'json',
-       success: function(data){
-			if(data[0].status == 'OK'){
-				alert("Actualizado correctamente");
-			}
-			else
-				alert("ERROR");
-	   }
-    });
-}
-
-//Se hace esta función para que, en caso de estar una clase "disableEnter" como la de los IMEI y SN de las líneas que estén en estado "Aceptado", se captura el Intro y no se hace nada, ya que como "pistolean" podría o guardarse y no ser lo deseado, o en caso de no capturar el Intro, recargar la búsqueda como pasa al dejar de hacer el focus.
-$(document).on("focus", ".disableEnter", function(){
-		$(document).off();
-});
-
-$(document).keypress(function(e){
-	if(e.which == 13){
-		$("#search").click();
-	}
-});
 
 $(document).ready(function(){ //Si hay contenido en el campo de búsqueda significa que viene un valor por referencia, y por tanto forzamos la búsqueda para mostrar los resultados tan pronto se cargue el documento
 	if( ("#datos").length > 0 )
@@ -191,4 +125,3 @@ $(".inputAct").change(function(event) { //Cuando se escribe en un input, vacía 
 	}
 });
 </script>
-<script src="./js/dailyBackground.js"></script>
